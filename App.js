@@ -1,14 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { createStore } from 'redux'
+// import reducers from './reducers'
+import { Provider } from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+
+  const store = createStore({})
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app did i break you!</Text>
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
+    );
 }
 
 const styles = StyleSheet.create({
