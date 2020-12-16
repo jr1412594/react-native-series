@@ -14,24 +14,24 @@ export default function RestaaurantCards({restaurant, index}) {
         
             <View style={styles.container}>
                 <Image style={styles.cardImage} source={{uri: restaurant.image_url}}/>
-                <View style={styles.infoContainer}>
-                    <View style={styles.rowView}>
-                    <Text style={styles.name}>{index}. {restaurant.name}</Text>
-                    <Text style={styles.price}>{restaurant.price}</Text>
-                    </View>
-                    <Text style={styles.rating}>Rating: {restaurant.rating}</Text>
-                    <Text style={styles.address}>{restaurant.location.address1}</Text>
-                    <View style={[styles.rowView, {justifyContent: 'flex-start'}]}>
-                    {restaurant.categories.map(category => (
-                        <Text>{category.title},</Text>
-                    ))}
-                    </View>
+                    <View style={styles.infoContainer}>
+                        <View style={styles.rowView}>
+                            <Text style={styles.name}>{index}. {restaurant.name}</Text>
+                            <Text style={styles.price}>{restaurant.price}</Text>
+                        </View>
+                            <Text style={styles.rating}>Rating: {restaurant.rating}</Text>
+                            <Text style={styles.address}>{restaurant.location.address1}</Text>
+                        <View style={[styles.rowView, {justifyContent: 'flex-start'}]}>
+                        {restaurant.categories.map(category => (
+                            <Text>{category.title},</Text>
+                        ))}
+                        </View>
                     <TouchableOpacity style={styles.visitWebsiteButton}
-                    onPress={() => Linking.openURL(restaurant.url)}
-                    >
-                        <Text style={styles.buttonText}>Visit website</Text>
-                    </TouchableOpacity>
-                </View>
+                        onPress={() => Linking.openURL(restaurant.url)}
+                        >
+                            <Text style={styles.buttonText}>Visit website</Text>
+                        </TouchableOpacity>
+                    </View>
             </View>
     )
 }

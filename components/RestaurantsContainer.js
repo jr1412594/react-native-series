@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import React, {useState, useEffect} from 'react'
+import { Text, View, StyleSheet, ScrollView, TextInput, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import RestaaurantCards from './RestaaurantCards'
 
@@ -10,6 +10,8 @@ const apiUrl = "https://api.yelp.com/v3/businesses/search?term=restaurants&locat
 export default function RestaurantsContainer() {
     const dispatch = useDispatch()
     const restaurants = useSelector(state => state.restaurants)
+
+    const [searchTerm, setSearchTerm] = useState('')
     
     
     useEffect(() => {
@@ -29,10 +31,31 @@ export default function RestaurantsContainer() {
             index={i+ 1} />
     })
 
+    const handleSearchText = (text) => {
+        setSearchTerm(text)
+    }
+
+    const handleSearch = () => {
+        const updatedURL = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${searchTerm}`
+        fetch(updatedURL, {
+            headers: {
+                "Authorization" : `Bearer ${apiKey}`
+            }
+        } )
+        .then(response => response.json())
+        .then(({businesses}) => dispatch({type: 'SET_RESTAURANTS', restaurants: businesses}))
+    }
+
     return (
+        <>
+        <View style={{flexDirection: 'row'}}>
+            <TextInput onChangeText={handleSearchText} value={searchTerm} placeholder='Enter Location' style={{height: 40, flex: 2, borderColor: 'gray', borderWidth: 1, marginLeft: 13, paddingHorizontal: 5}}/>
+            <Button style={{ flex: 1 }}onPress={handleSearch} title='Search'/>
+        </View>
         <ScrollView style={styles.container}>
             {showRestaurants()}
         </ScrollView>
+        </>
     )
 }
 
